@@ -2,7 +2,7 @@
 
 Dynamite-Dogs is a groundbreaking application designed for developers and technology enthusiasts. This innovative tool transforms your GitHub repository into a conversational agent, allowing for interactive, chat-based exploration of your codebase. Additionally, Dynamite-Dogs features a unique capability to generate engaging social media posts to share your repository across platforms like LinkedIn and Twitter, enhancing visibility and outreach.
 
-**What sets Dynamite-Dogs apart is its cost-effectiveness.** By leveraging advanced prompt engineering techniques and few-shot learning examples, we've built a solution that is not only powerful but also the most affordable on the market. Utilizing the Anthropic haiku model, Dynamite-Dogs offers responses at approximately 1 cent each, with an impressive 200k tokens context window, ensuring no compromise on quality.
+**What sets Dynamite-Dogs apart is its cost-effectiveness.** By leveraging advanced prompt engineering techniques and few-shot learning examples, we've built a solution that is not only powerful but also the most affordable on the market. Utilizing the Anthropic Claude 3 Haiku model, Dynamite-Dogs offers responses at approximately $0.01 each, with an impressive 200k tokens context window, ensuring no compromise on quality.
 
 ## Features 🐾
 
@@ -57,6 +57,11 @@ LANGFUSE_PUBLIC_KEY = <your_pb_key>
 LANGFUSE_SECRET_KEY = <your_sk_key>
 LANGFUSE_HOST = <your_host>
 GITHUB_TOKEN = <your_github_token>
+```
+
+Second, run this command to pull embeddings model
+```bash
+ollama pull mxbai-embed-large
 ```
 
 Then run this command to start the FastAPI server:
