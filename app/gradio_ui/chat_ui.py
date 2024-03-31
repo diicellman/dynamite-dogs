@@ -1,3 +1,5 @@
+"""Gradio Chat ui component."""
+
 import gradio as gr
 from typing import List
 

@@ -1,3 +1,5 @@
+"""Gradio Load ui component."""
+
 import gradio as gr
 import re
 

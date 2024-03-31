@@ -1,3 +1,5 @@
+"""Gradio ui component."""
+
 import gradio as gr
 
 from app.gradio_ui.chat_ui import demo_chat_ui

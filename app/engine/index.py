@@ -5,7 +5,6 @@ import os
 
 from dotenv import load_dotenv
 import lancedb
-from pydantic import Field
 
 from app.engine.prompts import (
     CODE_RAG_CHAT_HAIKU_PROMPT,
