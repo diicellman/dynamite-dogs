@@ -6,13 +6,16 @@ import logging
 import os
 
 import uvicorn
+import gradio as gr
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.routers.rag import rag_router
+from app.gradio_ui.ui import demo_dynamite_dogs
+
 from llama_index.core import Settings
 from llama_index.core.callbacks import CallbackManager
 from langfuse.llama_index import LlamaIndexCallbackHandler
-
-from app.api.routers.rag import rag_router
 
 
 LANGFUSE_PUBLIC_KEY = os.getenv("LANGFUSE_PUBLIC_KEY", "your_key")
@@ -50,6 +53,7 @@ if environment == "dev":
     )
 
 app.include_router(rag_router, prefix="/api/rag")
+app = gr.mount_gradio_app(app, demo_dynamite_dogs, path="/gradio")
 
 
 if __name__ == "__main__":

@@ -39,11 +39,7 @@ Settings.llm = Anthropic(
 )
 
 
-def get_doc_sub_question_query_engine(
-    streaming: bool = Field(
-        default=False, description="Param for frontend, by default is False"
-    )
-):
+def get_doc_sub_question_query_engine():
     """Builds a sub question query engine for documentation"""
     logger = logging.getLogger("uvicorn")
     logger.info("Connecting to LanceDB...")
@@ -69,7 +65,6 @@ def get_doc_sub_question_query_engine(
         query_engine = index.as_query_engine(
             similarity_top_k=10,
             text_qa_template=CODE_RAG_CHAT_HAIKU_PROMPT,
-            streaming=streaming,
             node_postprocessors=[
                 MetadataReplacementPostProcessor(target_metadata_key="window"),
                 colbert_reranker,
@@ -105,11 +100,7 @@ def get_doc_sub_question_query_engine(
     return doc_sub_query_engine
 
 
-def get_social_media_sub_question_query_engine(
-    streaming: bool = Field(
-        default=False, description="Param for frontend, by default is False"
-    )
-):
+def get_social_media_sub_question_query_engine():
     """Builds a sub question query engine for social media posts"""
     logger = logging.getLogger("uvicorn")
     logger.info("Connecting to LanceDB...")
@@ -135,7 +126,6 @@ def get_social_media_sub_question_query_engine(
         query_engine = index.as_query_engine(
             similarity_top_k=10,
             text_qa_template=CODE_RAG_CHAT_HAIKU_PROMPT,
-            streaming=streaming,
             node_postprocessors=[
                 MetadataReplacementPostProcessor(target_metadata_key="window"),
                 colbert_reranker,

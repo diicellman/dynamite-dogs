@@ -7,9 +7,6 @@ class MessageData(BaseModel):
     """Datamodel for messages."""
 
     query: str = Field(..., description="Query message.")
-    streaming: bool = Field(
-        default=False, description="Param for frontend, by default is False"
-    )
 
 
 class RAGResponse(BaseModel):
