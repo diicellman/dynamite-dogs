@@ -57,4 +57,4 @@ app = gr.mount_gradio_app(app, demo_dynamite_dogs, path="/gradio")
 
 
 if __name__ == "__main__":
-    uvicorn.run(app="main:app", host="0.0.0.0", port="8000", reload=True)
+    uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)
