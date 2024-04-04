@@ -2,6 +2,7 @@
 
 import logging
 import os
+from pydantic import Field
 
 from dotenv import load_dotenv
 import lancedb
@@ -21,6 +22,7 @@ from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 from llama_index.postprocessor.colbert_rerank import ColbertRerank
 from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.core.query_engine import SubQuestionQueryEngine
+from llama_index.core import get_response_synthesizer
 
 
 # global default
@@ -38,7 +40,11 @@ Settings.llm = Anthropic(
 )
 
 
-def get_doc_sub_question_query_engine():
+def get_doc_sub_question_query_engine(
+    stream_response: bool = Field(
+        default=False, description="Param for frontend, by default is False"
+    )
+):
     """Builds a sub question query engine for documentation"""
     logger = logging.getLogger("uvicorn")
     logger.info("Connecting to LanceDB...")
@@ -82,9 +88,11 @@ def get_doc_sub_question_query_engine():
         )
         query_tools.append(query_tool)
 
+    synth = get_response_synthesizer(streaming=stream_response)
     doc_sub_query_engine = SubQuestionQueryEngine.from_defaults(
         query_engine_tools=query_tools,
         llm=Settings.llm,
+        response_synthesizer=synth,
         verbose=True,
         use_async=True,
     )
@@ -99,7 +107,11 @@ def get_doc_sub_question_query_engine():
     return doc_sub_query_engine
 
 
-def get_social_media_sub_question_query_engine():
+def get_social_media_sub_question_query_engine(
+    stream_response: bool = Field(
+        default=False, description="Param for frontend, by default is False"
+    )
+):
     """Builds a sub question query engine for social media posts"""
     logger = logging.getLogger("uvicorn")
     logger.info("Connecting to LanceDB...")
@@ -143,9 +155,11 @@ def get_social_media_sub_question_query_engine():
         )
         query_tools.append(query_tool)
 
+    synth = get_response_synthesizer(streaming=stream_response)
     social_media_sub_query_engine = SubQuestionQueryEngine.from_defaults(
         query_engine_tools=query_tools,
         llm=Settings.llm,
+        response_synthesizer=synth,
         verbose=True,
         use_async=True,
     )

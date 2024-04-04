@@ -23,7 +23,9 @@ def create_index(payload: GitHubPayload):
 
 @rag_router.post("/doc-sub-question-query", response_model=RAGResponse, tags=["RAG"])
 async def doc_sub_question_query(message_data: MessageData):
-    query_engine = get_doc_sub_question_query_engine()
+    query_engine = get_doc_sub_question_query_engine(
+        stream_response=message_data.stream_response
+    )
 
     response = await query_engine.aquery(message_data.query)
 
@@ -34,7 +36,9 @@ async def doc_sub_question_query(message_data: MessageData):
     "/social-media-sub-question-query", response_model=RAGResponse, tags=["RAG"]
 )
 async def social_media_sub_question_query(message_data: MessageData):
-    query_engine = get_social_media_sub_question_query_engine()
+    query_engine = get_social_media_sub_question_query_engine(
+        stream_response=message_data.stream_response
+    )
 
     response = await query_engine.aquery(message_data.query)
 

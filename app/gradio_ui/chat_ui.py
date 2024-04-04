@@ -10,19 +10,25 @@ from app.engine.index import (
 
 
 async def doc_query(message: str, history: List[list]):
-    sub_query_engine = get_doc_sub_question_query_engine()
+    sub_query_engine = get_doc_sub_question_query_engine(stream_response=True)
 
     bot_message = await sub_query_engine.aquery(message)
 
-    return bot_message.response
+    partial_message = ""
+    async for text in bot_message.async_response_gen:
+        partial_message = partial_message + text
+        yield partial_message
 
 
 async def social_media_query(message: str, history: List[list]):
-    sub_query_engine = get_social_media_sub_question_query_engine()
+    sub_query_engine = get_social_media_sub_question_query_engine(stream_response=True)
 
     bot_message = await sub_query_engine.aquery(message)
 
-    return bot_message.response
+    partial_message = ""
+    async for text in bot_message.async_response_gen:
+        partial_message = partial_message + text
+        yield partial_message
 
 
 doc_chat = gr.ChatInterface(
