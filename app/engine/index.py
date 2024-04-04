@@ -34,7 +34,7 @@ Settings.embed_model = OllamaEmbedding(
     model_name="mxbai-embed-large:latest", base_url=OLLAMA_BASE_URL
 )
 Settings.llm = Anthropic(
-    model="claude-3-haiku-20240307", api_key=ANTHROPIC_API_KEY, max_tokens=2048
+    model="claude-3-haiku-20240307", api_key=ANTHROPIC_API_KEY, max_tokens=4096
 )
 
 
